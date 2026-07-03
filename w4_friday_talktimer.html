@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Week 4 · Friday — Output Day: Modal Verbs Talk Timer | English Pocket Planner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --cream:#F5F0E8;--paper:#EDE8DF;--rule:#D4CCC0;
+    --black:#1A1814;--charcoal:#2D2926;
+    --terra:#C2714F;--terra-light:#D4896A;
+    --warm:#8B7355;--muted:#6B6357;--white:#FDFAF5;
+    --success:#5B9E6B;--error:#C2504F;
+  }
+  body{font-family:'Inter','Helvetica Neue',sans-serif;background:var(--cream);color:var(--black);min-height:100vh}
+
+  header{background:var(--white);border-bottom:1px solid var(--rule);padding:0 28px;display:flex;align-items:stretch;justify-content:space-between;min-height:52px;position:sticky;top:0;z-index:100}
+  .wordmark{display:flex;align-items:center;font-family:'Arial Black','Helvetica Neue',Helvetica,sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;border-right:1px solid var(--rule);padding-right:20px;margin-right:20px}
+  .wordmark span{color:var(--terra)}
+  .hd-meta{display:flex;align-items:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B5A48A}
+  .badge{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--terra);font-weight:700;border:1px solid var(--terra);padding:4px 10px;display:flex;align-items:center}
+
+  .hero{background:var(--black);padding:40px 32px 36px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(194,113,79,.25)}
+  .hero-eyebrow{color:var(--terra-light);font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+  .hero h1{color:var(--white);font-size:30px;font-weight:700;line-height:1.15;max-width:520px}
+  .hero p{color:#C9C2B6;font-size:14px;margin-top:10px;max-width:480px;line-height:1.5}
+
+  main{max-width:640px;margin:0 auto;padding:32px 20px 80px}
+  section{margin-bottom:36px}
+  .sec-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--terra);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .sec-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+
+  /* Certainty / formality reference panel */
+  .ref-card{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:22px}
+  .scale-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .scale-row:last-child{margin-bottom:0}
+  .scale-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--warm);width:70px;flex-shrink:0}
+  .scale-track{flex:1;height:6px;background:var(--paper);border-radius:3px;position:relative}
+  .scale-fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--terra-light),var(--terra));border-radius:3px}
+  .scale-words{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+  .scale-words b{color:var(--black)}
+
+  /* Topics */
+  .topic-card{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:22px;margin-bottom:14px}
+  .topic-num{font-size:11px;color:var(--terra);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+  .topic-title{font-size:16px;font-weight:700;margin-bottom:8px}
+  .topic-goal{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+  .topic-goal b{color:var(--charcoal)}
+  .topic-modals{display:flex;flex-wrap:wrap;gap:6px}
+  .modal-chip{font-size:11px;background:var(--paper);border:1px solid var(--rule);border-radius:20px;padding:4px 12px;color:var(--charcoal)}
+
+  /* Timer */
+  .timer-section{background:var(--black);border-radius:2px;padding:32px 24px;text-align:center}
+  .timer-current-topic{color:var(--terra-light);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+  .timer-display{color:var(--white);font-size:56px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+  .timer-btns{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+  .timer-btns button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);color:var(--white);padding:9px 20px;border-radius:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.15s}
+  .timer-btns button:hover{background:rgba(255,255,255,.2)}
+  .timer-btns button.primary{background:var(--terra);border-color:var(--terra)}
+  .timer-btns button.primary:hover{background:var(--terra-light)}
+  .topic-nav{display:flex;justify-content:space-between;margin-top:18px}
+  .topic-nav button{background:none;border:none;color:#C9C2B6;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+  .topic-nav button:hover{color:var(--white)}
+
+  /* Email task */
+  .email-card{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:22px}
+  .email-card h4{font-size:14px;margin-bottom:10px}
+  .email-card ol{margin-left:18px;font-size:13px;line-height:1.9;color:var(--charcoal)}
+  .email-card ol b{color:var(--black)}
+  textarea{width:100%;min-height:160px;margin-top:14px;border:1px solid var(--rule);border-radius:2px;padding:14px;font-family:inherit;font-size:14px;line-height:1.6;background:var(--paper);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--terra)}
+  .word-count{font-size:11px;color:var(--muted);text-align:right;margin-top:6px}
+
+  /* Results card */
+  .results-card{background:var(--black);color:var(--white);border-radius:2px;padding:28px;text-align:center}
+  .results-num{font-size:40px;font-weight:700;color:var(--terra-light);line-height:1}
+  .results-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C9C2B6;margin-top:8px}
+  .results-list{text-align:left;max-width:380px;margin:20px auto 0;font-size:13px;color:#C9C2B6;line-height:2}
+  .results-list span{color:var(--terra-light);margin-right:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center">
+    <div class="wordmark">Pocket<span>·</span>Planner</div>
+    <div class="hd-meta">Week 4 · Friday</div>
+  </div>
+  <div class="badge">Output Day</div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Step 3 · Output</div>
+  <h1>Modal Verbs Talk Timer</h1>
+  <p>Sexta é dia de colocar tudo pra fora. Cinco tópicos progressivos de speaking cobrindo os quatro grupos de modais, seguidos de uma tarefa de escrita: um e-mail profissional real.</p>
+</div>
+
+<main>
+
+  <section>
+    <div class="sec-label">Certainty & Formality Scale</div>
+    <div class="ref-card">
+      <div class="scale-row">
+        <div class="scale-label">Requests</div>
+        <div style="flex:1">
+          <div class="scale-track"><div class="scale-fill" style="width:100%"></div></div>
+          <div class="scale-words"><b>Can</b> → Could → Would you mind <b>(mais formal)</b></div>
+        </div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-label">Obligation</div>
+        <div style="flex:1">
+          <div class="scale-track"><div class="scale-fill" style="width:70%"></div></div>
+          <div class="scale-words"><b>Should</b> (conselho) → Have to (externa) → Must <b>(regra forte)</b></div>
+        </div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-label">Possibility</div>
+        <div style="flex:1">
+          <div class="scale-track"><div class="scale-fill" style="width:45%"></div></div>
+          <div class="scale-words"><b>Might</b> (menos certo) → Could → May <b>(mais formal)</b></div>
+        </div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-label">Deduction</div>
+        <div style="flex:1">
+          <div class="scale-track"><div class="scale-fill" style="width:90%"></div></div>
+          <div class="scale-words">Can't (certeza negativa) → Might → <b>Must (certeza positiva)</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Speaking Timer</div>
+    <div class="timer-section">
+      <div class="timer-current-topic" id="topicLabel">Topic 1 of 5</div>
+      <div class="timer-display" id="timerDisplay">00:45</div>
+      <div class="timer-btns">
+        <button class="primary" onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+      </div>
+      <div class="topic-nav">
+        <button onclick="prevTopic()">← Previous Topic</button>
+        <button onclick="nextTopic()">Next Topic →</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">5 Topics</div>
+
+    <div class="topic-card">
+      <div class="topic-num">Topic 1 · 45s</div>
+      <div class="topic-title">Work Obligations</div>
+      <div class="topic-goal">Descreva <b>três coisas que você tem que fazer</b> essa semana no trabalho — distinga o que é regra da empresa e o que é responsabilidade sua.</div>
+      <div class="topic-modals"><span class="modal-chip">have to</span><span class="modal-chip">must</span></div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-num">Topic 2 · 45s</div>
+      <div class="topic-title">Advice for an English Learner</div>
+      <div class="topic-goal">Dê <b>três conselhos</b> para alguém que está começando a aprender inglês agora — o que essa pessoa deveria (ou não deveria) fazer.</div>
+      <div class="topic-modals"><span class="modal-chip">should</span><span class="modal-chip">shouldn't</span></div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-num">Topic 3 · 45s</div>
+      <div class="topic-title">Polite Requests at Work</div>
+      <div class="topic-goal">Faça <b>dois pedidos educados</b> como se estivesse falando com um colega e depois com seu chefe — ajuste o nível de formalidade.</div>
+      <div class="topic-modals"><span class="modal-chip">could</span><span class="modal-chip">would you mind</span></div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-num">Topic 4 · 60s</div>
+      <div class="topic-title">Looking Back — Should Have</div>
+      <div class="topic-goal">Fale sobre <b>algo que você deveria ter feito diferente</b> no passado (trabalho, estudo, ou qualquer área) — arrependimento no passado.</div>
+      <div class="topic-modals"><span class="modal-chip">should have</span><span class="modal-chip">shouldn't have</span></div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-num">Topic 5 · 90s · Final</div>
+      <div class="topic-title">Everything Together</div>
+      <div class="topic-goal">Descreva uma <b>situação real de trabalho</b> combinando os quatro grupos: uma obrigação, um conselho que você daria, um pedido que você faria, e uma especulação sobre o que pode acontecer.</div>
+      <div class="topic-modals"><span class="modal-chip">have to</span><span class="modal-chip">should</span><span class="modal-chip">could</span><span class="modal-chip">might</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Writing Task · Professional Email</div>
+    <div class="email-card">
+      <h4>Write a short professional email (60–90 words)</h4>
+      <ol>
+        <li>Peça algo educadamente ao destinatário — use <b>could</b> ou <b>would you mind</b>.</li>
+        <li>Explique uma obrigação ou prazo — use <b>have to</b> ou <b>must</b>.</li>
+        <li>Dê uma sugestão ou recomendação — use <b>should</b>.</li>
+        <li>Mencione algo incerto sobre os próximos passos — use <b>might</b> ou <b>may</b>.</li>
+      </ol>
+      <textarea id="emailBox" placeholder="Dear ...,&#10;&#10;Write your email here..." oninput="countWords()"></textarea>
+      <div class="word-count" id="wordCount">0 words</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Session Summary</div>
+    <div class="results-card">
+      <div class="results-num" id="topicsCompleted">0/5</div>
+      <div class="results-label">Topics Completed</div>
+      <div class="results-list">
+        <div><span>✓</span>Requests praticado com dois níveis de formalidade</div>
+        <div><span>✓</span>Obligation & advice diferenciados na fala</div>
+        <div><span>✓</span>Deduction e possibility usados em contexto real</div>
+        <div><span>✓</span>E-mail profissional escrito com os 4 grupos</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const topics=[
+  {label:"Topic 1 of 5",seconds:45},
+  {label:"Topic 2 of 5",seconds:45},
+  {label:"Topic 3 of 5",seconds:45},
+  {label:"Topic 4 of 5",seconds:60},
+  {label:"Topic 5 of 5 · Final",seconds:90}
+];
+let currentTopic=0,timerSeconds=topics[0].seconds,timerInterval=null,completed=new Set();
+
+function updateDisplay(){
+  const m=String(Math.floor(timerSeconds/60)).padStart(2,'0');
+  const s=String(timerSeconds%60).padStart(2,'0');
+  document.getElementById('timerDisplay').textContent=m+':'+s;
+  document.getElementById('topicLabel').textContent=topics[currentTopic].label;
+}
+function startTimer(){
+  if(timerInterval)return;
+  timerInterval=setInterval(()=>{
+    if(timerSeconds>0){timerSeconds--;updateDisplay();}
+    else{
+      clearInterval(timerInterval);timerInterval=null;
+      completed.add(currentTopic);
+      updateResults();
+    }
+  },1000);
+}
+function pauseTimer(){clearInterval(timerInterval);timerInterval=null;}
+function resetTimer(){
+  pauseTimer();
+  timerSeconds=topics[currentTopic].seconds;
+  updateDisplay();
+}
+function nextTopic(){
+  pauseTimer();
+  currentTopic=(currentTopic+1)%topics.length;
+  timerSeconds=topics[currentTopic].seconds;
+  updateDisplay();
+}
+function prevTopic(){
+  pauseTimer();
+  currentTopic=(currentTopic-1+topics.length)%topics.length;
+  timerSeconds=topics[currentTopic].seconds;
+  updateDisplay();
+}
+function updateResults(){
+  document.getElementById('topicsCompleted').textContent=completed.size+'/5';
+}
+function countWords(){
+  const text=document.getElementById('emailBox').value.trim();
+  const count=text?text.split(/\s+/).length:0;
+  document.getElementById('wordCount').textContent=count+' words';
+}
+updateDisplay();
+</script>
+
+</body>
+</html>
